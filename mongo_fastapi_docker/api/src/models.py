@@ -2,10 +2,6 @@ from bson import ObjectId
 from pydantic import BaseModel, Field
 from typing import Optional
 
-# from typing_extensions import Annotated
-# from pydantic.functional_validators import BeforeValidator
-# PyObjectId = Annotated[str, BeforeValidator(str)]   # NOTE: another way ... difference?
-
 class PyObjectId(ObjectId):
     @classmethod
     def __get_validators__(cls):
@@ -39,6 +35,3 @@ class UserModel(BaseModel):
                 "name":"Demo Account"
             }
         } 
-
-# class UserListModel(BaseModel):
-#     users: List[UserModel]
