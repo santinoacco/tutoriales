@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  database:
+    image: mongo
+    volumes:
+      - mongodata:/data/db
+    # NOTE: expose & connect port to access DB from MongoDB Compass
+    ports:  
+      - 27017:27017
+    # restart: always
+  api:
+    build: ./api
+    ports:
+      # - 8000:8000
+      - ${API_PORT}:${API_PORT}
+    env_file: .env
+    # NOTE: I'm mapping the URL to the database container defined below.
+    # environment:
+      # - DB_URL=mongodb://database/testDB
+    volumes:
+      - ./api/:/code
+    depends_on:
+      - database
+volumes:
+  mongodata:
